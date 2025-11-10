@@ -9,7 +9,7 @@ public class DataConverterImpl implements DataConverter {
         return reports.stream()
                 .map(str -> {
                     String[] parts = str.split(",");
-                    FruitTransaction.Operation op = FruitTransaction.Operation.valueOf(parts[0]);
+                    FruitTransaction.Operation op = FruitTransaction.Operation.fromCode(parts[0]);
                     String fruit = parts[1];
                     int quantity = Integer.parseInt(parts[2]);
                     return FruitTransaction.of(op, fruit, quantity);

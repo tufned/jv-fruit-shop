@@ -9,7 +9,7 @@ public class ShopFileWriterImpl implements ShopFileWriter {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(data);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Can't write file by path: " + fileName, e);
         }
     }
 }
