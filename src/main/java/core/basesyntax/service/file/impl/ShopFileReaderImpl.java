@@ -1,4 +1,6 @@
-package core.basesyntax.utils.file;
+package core.basesyntax.service.file.impl;
+
+import core.basesyntax.service.file.ShopFileReader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
