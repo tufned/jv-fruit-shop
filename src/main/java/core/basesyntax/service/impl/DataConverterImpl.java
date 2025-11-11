@@ -8,6 +8,9 @@ import java.util.List;
 public class DataConverterImpl implements DataConverter {
     @Override
     public List<FruitTransaction> convertToTransactions(List<String> reports) {
+        if (reports == null) {
+            throw new IllegalArgumentException("Reports must not be null");
+        }
         return reports.stream()
                 .map(str -> {
                     String[] parts = str.split(",");

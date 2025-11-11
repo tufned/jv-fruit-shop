@@ -13,8 +13,8 @@ public class ReportGeneratorImpl implements ReportGenerator {
 
     @Override
     public String getReport() {
-        return "fruit,quantity\n" + storage.getStorage().entrySet().stream()
-                .map(entry -> entry.getKey() + ',' + entry.getValue() + "\n")
+        return "fruit,quantity" + System.lineSeparator() + storage.getStorage().entrySet().stream()
+                .map(entry -> entry.getKey() + ',' + entry.getValue() + System.lineSeparator())
                 .collect(Collectors.joining());
     }
 }
