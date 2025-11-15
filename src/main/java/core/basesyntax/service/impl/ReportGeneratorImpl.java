@@ -21,6 +21,6 @@ public class ReportGeneratorImpl implements ReportGenerator {
         builder.append(REPORT_HEADER)
                 .append(System.lineSeparator())
                 .append(data);
-         return builder.toString();
+        return builder.toString();
     }
 }
