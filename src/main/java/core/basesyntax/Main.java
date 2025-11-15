@@ -24,15 +24,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
+    private static final String REPORT_TO_READ_PATH = "src/main/resources/reportToRead.csv";
+    private static final String FINAL_REPORT_PATH = "src/main/resources/finalReport.csv";
+
     public static void main(String[] args) {
         ShopStorage storage = new ShopStorage();
 
-        // 1. Read the data from the input CSV file
         ShopFileReader fileReader = new ShopFileReaderImpl();
         List<String> inputReport =
-                fileReader.readCsv("src/main/resources/reportToRead.csv");
+                fileReader.readCsv(REPORT_TO_READ_PATH);
 
-        // 2. Create and feel the map with all OperationHandler implementations
         Map<FruitTransaction.Operation, OperationHandler> operationHandlers = new HashMap<>();
         operationHandlers.put(FruitTransaction.Operation.BALANCE, new BalanceOperation());
         operationHandlers.put(FruitTransaction.Operation.PURCHASE, new PurchaseOperation());
@@ -40,20 +41,16 @@ public class Main {
         operationHandlers.put(FruitTransaction.Operation.SUPPLY, new SupplyOperation());
         OperationStrategy operationStrategy = new OperationStrategyImpl(operationHandlers);
 
-        // 3. Convert the incoming data into FruitTransactions list
         DataConverter dataConverter = new DataConverterImpl();
         List<FruitTransaction> transactions = dataConverter.convertToTransactions(inputReport);
 
-        // 4. Process the incoming transactions with applicable OperationHandler implementations
         ShopService shopService = new ShopServiceImpl(operationStrategy, storage);
         shopService.process(transactions);
 
-        // 5.Generate report based on the current Storage state
         ReportGenerator reportGenerator = new ReportGeneratorImpl(storage);
         String resultingReport = reportGenerator.getReport();
 
-        // 6. Write the received report into the destination file
         ShopFileWriter fileWriter = new ShopFileWriterImpl();
-        fileWriter.write(resultingReport, "src/main/resources/finalReport.csv");
+        fileWriter.write(resultingReport, FINAL_REPORT_PATH);
     }
 }

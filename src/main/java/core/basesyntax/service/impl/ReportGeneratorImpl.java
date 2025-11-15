@@ -5,6 +5,7 @@ import core.basesyntax.service.ReportGenerator;
 import java.util.stream.Collectors;
 
 public class ReportGeneratorImpl implements ReportGenerator {
+    private static final String REPORT_HEADER = "fruit,quantity";
     private final ShopStorage storage;
 
     public ReportGeneratorImpl(ShopStorage storage) {
@@ -13,8 +14,13 @@ public class ReportGeneratorImpl implements ReportGenerator {
 
     @Override
     public String getReport() {
-        return "fruit,quantity" + System.lineSeparator() + storage.getStorage().entrySet().stream()
+        StringBuilder builder = new StringBuilder();
+        String data = storage.getStorage().entrySet().stream()
                 .map(entry -> entry.getKey() + ',' + entry.getValue() + System.lineSeparator())
                 .collect(Collectors.joining());
+        builder.append(REPORT_HEADER)
+                .append(System.lineSeparator())
+                .append(data);
+         return builder.toString();
     }
 }

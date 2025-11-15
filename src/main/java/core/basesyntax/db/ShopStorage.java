@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShopStorage {
-    private final Map<String, Integer> storage = new HashMap<>();
+    private static final Map<String, Integer> storage = new HashMap<>();
 
     public void add(String key, int value) {
         storage.put(key, value);
